@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* ============================================================
+   GIZERA DESIGN TOKENS
+   Referensi: Gizera Web (Framer export) — JANGAN ubah sumbernya
+   ============================================================ */
+
+@theme {
+  /* --- Brand Blue --- */
+  --color-brand-blue:        #0752ff;
+  --color-brand-blue-hover:  #005eff;
+  --color-brand-blue-dark:   #0e285d;
+  --color-brand-blue-deep:   #001d2e;
+  --color-brand-blue-pale:   #e6edff;
+  --color-brand-blue-light:  #f0f8ff;
+
+  /* --- Brand Teal (Aksen Sekunder) --- */
+  --color-teal:              #056671;
+  --color-teal-dark:         #004951;
+  --color-teal-darker:       #012b30;
+  --color-teal-light:        #ebf4f5;
+  --color-teal-cyan:         #14f3c1;
+
+  /* --- Netral / Surface --- */
+  --color-white:             #ffffff;
+  --color-off-white:         #f8f7f5;
+  --color-bg:                #f5f7f7;
+  --color-bg-pale-teal:      #ecf0f0;
+  --color-border:            #eaeaea;
+  --color-border-soft:       #d4d5d9;
+
+  /* --- Teks --- */
+  --color-text-primary:      #121212;
+  --color-text-secondary:    #636363;
+  --color-text-muted:        #52525a;
+  --color-text-heading:      #0e285d;
+  --color-text-dark:         #0c0e12;
+
+  /* --- Dark Background --- */
+  --color-dark:              #00030d;
+  --color-dark-navy:         #00121c;
+  --color-dark-deep:         #001517;
+  --color-dark-card:         #1c1c1c;
+  --color-dark-surface:      #0c0e12;
+
+  /* --- Aksen --- */
+  --color-accent-purple:     #8f58ff;
+
+  /* --- Font Families --- */
+  --font-display:  "Mona Sans Variable", "Mona Sans", ui-sans-serif, sans-serif;
+  --font-body:     "Golos Text", ui-sans-serif, sans-serif;
+  --font-ui:       "Inter", ui-sans-serif, sans-serif;
+  --font-mono:     "Fragment Mono", ui-monospace, monospace;
+
+  /* --- Font Sizes (skala referensi dari Gizera Web) --- */
+  --text-hero:     clamp(46px, 6vw, 80px);
+  --text-h1:       clamp(40px, 5vw, 70px);
+  --text-h2:       clamp(31px, 4vw, 47px);
+  --text-h3:       clamp(22px, 3vw, 31px);
+  --text-h4:       clamp(20px, 2.5vw, 24px);
+  --text-body:     16px;
+  --text-sm:       14px;
+  --text-xs:       11px;
+
+  /* --- Container --- */
+  --container-max: 1200px;
+  --container-pad: 32px;
+
+  /* --- Breakpoints (sesuai Framer) --- */
+  --breakpoint-sm: 810px;
+  --breakpoint-md: 1200px;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-text-heading);
+    line-height: 1.2;
+    letter-spacing: -0.032em;
+  }
+
+  code, pre, kbd, samp {
+    font-family: var(--font-mono);
+  }
+
+  a {
+    color: var(--color-brand-blue);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-brand-blue-hover);
+  }
+}
