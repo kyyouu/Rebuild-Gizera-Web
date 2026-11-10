@@ -13,6 +13,31 @@ const router = createRouter({
       component: () => import('./views/HomeView.vue'),
     },
     {
+      path: '/services',
+      name: 'services',
+      component: () => import('./views/ServicesView.vue'),
+    },
+    {
+      path: '/case-studies',
+      name: 'case-studies',
+      component: () => import('./views/CaseStudiesView.vue'),
+    },
+    {
+      path: '/blogs',
+      name: 'blogs',
+      component: () => import('./views/BlogsView.vue'),
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('./views/AboutView.vue'),
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('./views/ContactView.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('./views/NotFoundView.vue'),
@@ -25,4 +50,3 @@ const router = createRouter({
 })
 
 createApp(App).use(router).mount('#app')
-

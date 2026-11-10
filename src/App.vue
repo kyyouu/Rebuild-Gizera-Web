@@ -1,10 +1,14 @@
+<script setup>
+/**
+ * App.vue — Root component.
+ * Wraps all pages in DefaultLayout (Navbar + slot + Footer).
+ * Day 7: DefaultLayout and AppNavbar implemented.
+ */
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+</script>
 
 <template>
-  <!--
-    App.vue — Root container.
-    RouterView me-render view aktif sesuai route.
-    Layout (Navbar, Footer) akan ditambahkan di Fase 2 melalui src/layouts/.
-  -->
-  <RouterView />
+  <DefaultLayout>
+    <RouterView />
+  </DefaultLayout>
 </template>
-

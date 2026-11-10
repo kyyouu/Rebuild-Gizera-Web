@@ -2,29 +2,32 @@
 
 /* ============================================================
    GIZERA DESIGN TOKENS
-   Referensi: Gizera Web (Framer export) — JANGAN ubah sumbernya
+   Audit & Sinkronisasi Presisi: Gizera Web (Framer Export)
    ============================================================ */
 
 @theme {
-  /* --- Brand Blue --- */
+  /* --- Brand Blue Family --- */
   --color-brand-blue:        #0752ff;
   --color-brand-blue-hover:  #005eff;
   --color-brand-blue-dark:   #0e285d;
   --color-brand-blue-deep:   #001d2e;
   --color-brand-blue-pale:   #e6edff;
   --color-brand-blue-light:  #f0f8ff;
+  --color-brand-blue-navy:   #0d409b;
 
   /* --- Brand Teal (Aksen Sekunder) --- */
   --color-teal:              #056671;
   --color-teal-dark:         #004951;
   --color-teal-darker:       #012b30;
   --color-teal-light:        #ebf4f5;
+  --color-teal-soft:         #d8e9eb;
   --color-teal-cyan:         #14f3c1;
 
   /* --- Netral / Surface --- */
   --color-white:             #ffffff;
   --color-off-white:         #f8f7f5;
   --color-bg:                #f5f7f7;
+  --color-bg-alt:            #f6f7f8;
   --color-bg-pale-teal:      #ecf0f0;
   --color-border:            #eaeaea;
   --color-border-soft:       #d4d5d9;
@@ -35,40 +38,131 @@
   --color-text-muted:        #52525a;
   --color-text-heading:      #0e285d;
   --color-text-dark:         #0c0e12;
+  --color-text-black:        #0c111c;
 
-  /* --- Dark Background --- */
+  /* --- Dark Mode & Dark Surface --- */
   --color-dark:              #00030d;
   --color-dark-navy:         #00121c;
   --color-dark-deep:         #001517;
   --color-dark-card:         #1c1c1c;
   --color-dark-surface:      #0c0e12;
+  --color-dark-pure:         #000205;
+  --color-dark-teal:         #001d1b;
 
-  /* --- Aksen --- */
+  /* --- Aksen Khusus --- */
   --color-accent-purple:     #8f58ff;
+  --color-accent-maroon:     #300007;
 
   /* --- Font Families --- */
   --font-display:  "Mona Sans Variable", "Mona Sans", ui-sans-serif, sans-serif;
   --font-body:     "Golos Text", ui-sans-serif, sans-serif;
   --font-ui:       "Inter", ui-sans-serif, sans-serif;
-  --font-mono:     "Fragment Mono", ui-monospace, monospace;
 
-  /* --- Font Sizes (skala referensi dari Gizera Web) --- */
-  --text-hero:     clamp(46px, 6vw, 80px);
-  --text-h1:       clamp(40px, 5vw, 70px);
-  --text-h2:       clamp(31px, 4vw, 47px);
-  --text-h3:       clamp(22px, 3vw, 31px);
-  --text-h4:       clamp(20px, 2.5vw, 24px);
-  --text-body:     16px;
-  --text-sm:       14px;
-  --text-xs:       11px;
+  /* --- Font Sizes & Paired Typographic Scales --- */
+  --text-display:                  clamp(48px, 6vw, 74px);
+  --text-display--line-height:     1.05;
+  --text-display--letter-spacing:  -0.04em;
 
-  /* --- Container --- */
-  --container-max: 1200px;
-  --container-pad: 32px;
+  --text-hero:                     clamp(46px, 6vw, 80px);
+  --text-hero--line-height:        1.1;
+  --text-hero--letter-spacing:     -0.032em;
 
-  /* --- Breakpoints (sesuai Framer) --- */
-  --breakpoint-sm: 810px;
-  --breakpoint-md: 1200px;
+  --text-h1:                       clamp(40px, 5vw, 70px);
+  --text-h1--line-height:          1.15;
+  --text-h1--letter-spacing:       -0.032em;
+
+  --text-h2:                       clamp(31px, 4vw, 47px);
+  --text-h2--line-height:          1.2;
+  --text-h2--letter-spacing:       -0.032em;
+
+  --text-h3:                       clamp(22px, 3vw, 31px);
+  --text-h3--line-height:          1.25;
+  --text-h3--letter-spacing:       -0.02em;
+
+  --text-h4:                       clamp(20px, 2.5vw, 24px);
+  --text-h4--line-height:          1.3;
+  --text-h4--letter-spacing:       -0.02em;
+
+  --text-lg:                       18px;
+  --text-lg--line-height:          1.5;
+
+  --text-body:                     16px;
+  --text-body--line-height:        1.6;
+
+  --text-sm:                       14px;
+  --text-sm--line-height:          1.45;
+
+  --text-xs:                       11px;
+  --text-xs--line-height:          1.35;
+  --text-xs--letter-spacing:       0.05em;
+
+  /* --- Letter Spacing (Tracking) --- */
+  --tracking-tighter:  -0.05em;
+  --tracking-tight:    -0.032em;
+  --tracking-snug:     -0.02em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.05em;
+  --tracking-widest:   0.1em;
+
+  /* --- Line Heights (Leading) --- */
+  --leading-none:      1;
+  --leading-tight:     1.08;
+  --leading-snug:      1.2;
+  --leading-normal:    1.45;
+  --leading-relaxed:   1.6;
+
+  /* --- Font Weights --- */
+  --font-weight-regular:   400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+  --font-weight-black:     900;
+
+  /* --- Border Radius --- */
+  --radius-sm:         6px;
+  --radius-md:         8px;
+  --radius-lg:         20px;
+  --radius-xl:         24px;
+  --radius-2xl:        32px;
+  --radius-full:       9999px;
+
+  /* --- Shadows --- */
+  --shadow-card:       0px 0.6px 0.6px -1.25px rgba(0, 94, 255, 0.04), 0px 2.3px 2.3px -2.5px rgba(0, 94, 255, 0.03), 0px 10px 10px -3.75px rgba(0, 94, 255, 0.01);
+  --shadow-card-hover: 0px 4px 20px -2px rgba(0, 94, 255, 0.12), 0px 12px 32px -4px rgba(0, 94, 255, 0.08);
+  --shadow-modal:      0 8px 22px rgba(0, 0, 0, 0.45);
+  --shadow-button:     0 4px 14px rgba(7, 82, 255, 0.35);
+  --shadow-inset-dark: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.08);
+
+  /* --- Spacing & Sections --- */
+  --spacing-section:           120px;
+  --spacing-section-sm:        80px;
+  --spacing-card:              32px;
+  --spacing-card-sm:           20px;
+
+  /* --- Container & Layout --- */
+  --container-site:            1300px;
+
+  /* --- Breakpoints (sesuai Framer: Mobile <810px, Tablet 810-1199px, Desktop >=1200px) --- */
+  --breakpoint-*:              initial;
+  --breakpoint-sm:             810px;
+  --breakpoint-md:             1200px;
+
+  /* --- Transitions & Animations --- */
+  --ease-framer:               cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast:           all 0.15s ease;
+  --transition-default:        all 0.25s ease;
+  --transition-spring:         opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES (non-theme)
+   Container padding — tidak masuk @theme agar tidak dikompilasi
+   sebagai utility class Tailwind.
+   ============================================================ */
+
+:root {
+  --container-pad:    32px;
+  --container-pad-sm: 16px;
 }
 
 /* ============================================================
@@ -88,17 +182,14 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--color-text-heading);
-    line-height: 1.2;
-    letter-spacing: -0.032em;
-  }
-
-  code, pre, kbd, samp {
-    font-family: var(--font-mono);
+    line-height: var(--leading-snug, 1.2);
+    letter-spacing: var(--tracking-tight, -0.032em);
   }
 
   a {
     color: var(--color-brand-blue);
     text-decoration: none;
+    transition: var(--transition-fast, color 0.15s ease);
   }
 
   a:hover {
