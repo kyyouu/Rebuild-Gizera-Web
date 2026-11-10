@@ -19,12 +19,6 @@
         Gizera adalah mitra terpercaya transformasi digital — IT konsultan,
         infrastruktur &amp; jaringan, software specialist, serta solusi HR &amp; OD.
       </p>
-      <p
-        class="mt-8"
-        style="font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-text-muted);"
-      >
-        Route: <code>/</code> · HomeView · Day 7 — Komponen section akan ditambahkan berikutnya
-      </p>
     </div>
   </main>
 </template>
