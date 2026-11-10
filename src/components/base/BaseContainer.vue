@@ -18,11 +18,10 @@ defineProps({
 <template>
   <component
     :is="as"
-    class="w-full mx-auto"
+    class="w-full max-w-[1300px] mx-auto"
     :class="[
       !flush && 'px-4 sm:px-8',
     ]"
-    :style="{ maxWidth: 'var(--container-site, 1300px)' }"
   >
     <slot />
   </component>

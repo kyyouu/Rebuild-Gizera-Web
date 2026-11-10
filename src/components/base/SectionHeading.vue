@@ -30,27 +30,17 @@ defineProps({
 
     <component
       :is="tag"
-      class="font-bold"
-      :style="{
-        fontFamily:     'var(--font-display)',
-        fontSize:       'var(--text-h2)',
-        lineHeight:     'var(--text-h2--line-height, 1.2)',
-        letterSpacing:  'var(--text-h2--letter-spacing, -0.032em)',
-        color:          'var(--color-text-heading)',
-      }"
+      class="font-display text-h2 text-text-heading font-normal"
     >
       <slot>{{ title }}</slot>
     </component>
 
     <p
       v-if="subtitle"
-      :style="{
-        fontFamily: 'var(--font-body)',
-        fontSize:   'var(--text-body)',
-        lineHeight: 'var(--text-body--line-height, 1.6)',
-        color:      'var(--color-text-secondary)',
-        maxWidth:   align === 'center' ? '600px' : undefined,
-      }"
+      :class="[
+        'font-body text-body text-text-secondary',
+        align === 'center' && 'max-w-[600px]',
+      ]"
     >
       {{ subtitle }}
     </p>

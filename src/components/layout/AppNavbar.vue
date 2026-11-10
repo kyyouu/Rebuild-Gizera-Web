@@ -5,29 +5,81 @@
  * Desktop (≥810px): Logo left, horizontal links, CTA button right.
  * Mobile (<810px):  Logo left, hamburger right → slide-down menu.
  *
- * Uses design tokens from style.css.
- * Breakpoint: --breakpoint-sm = 810px
+ * Refined for Day 7 code review:
+ *   - Cleaned empty <nav> and removed !important declarations
+ *   - Dynamic ARIA accessibility labels
+ *   - Keyboard Escape handling with focus restoration
+ *   - Viewport resize auto-close (at ≥810px)
+ *   - Safe body scroll lock with onUnmounted cleanup
+ *   - Tailwind design token utilities (bg-brand-blue, text-text-heading, etc.)
  */
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
-const route    = useRoute()
-const isOpen   = ref(false)
+const route        = useRoute()
+const isOpen       = ref(false)
+const hamburgerBtn = ref(null)
 
 function toggleMenu() {
   isOpen.value = !isOpen.value
 }
 
-function closeMenu() {
-  isOpen.value = false
+function closeMenu(restoreFocus = false) {
+  if (isOpen.value) {
+    isOpen.value = false
+    if (restoreFocus) {
+      nextTick(() => {
+        hamburgerBtn.value?.focus()
+      })
+    }
+  }
 }
 
-// Auto-close mobile menu on route change
-watch(route, closeMenu)
+// Track original overflow to safely restore previous style
+let previousOverflow = ''
 
-// Prevent body scroll when mobile menu is open
+// Watch isOpen to toggle body overflow cleanly
 watch(isOpen, (val) => {
-  document.body.style.overflow = val ? 'hidden' : ''
+  if (typeof document !== 'undefined') {
+    if (val) {
+      previousOverflow = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = previousOverflow
+    }
+  }
+})
+
+// Auto-close on route change
+watch(route, () => {
+  closeMenu(false)
+})
+
+// Escape key handler: close mobile menu and restore keyboard focus
+function handleKeydown(event) {
+  if (event.key === 'Escape' && isOpen.value) {
+    closeMenu(true)
+  }
+}
+
+// Window resize handler: auto-close mobile menu when transitioning to desktop (≥810px)
+function handleResize() {
+  if (typeof window !== 'undefined' && window.innerWidth >= 810 && isOpen.value) {
+    closeMenu(false)
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+  window.removeEventListener('resize', handleResize)
+  if (typeof document !== 'undefined' && isOpen.value) {
+    document.body.style.overflow = previousOverflow
+  }
 })
 
 const navLinks = [
@@ -39,22 +91,16 @@ const navLinks = [
 </script>
 
 <template>
-  <!-- Navbar wrapper — fixed, full-width, z-index 50 -->
-  <header
-    class="fixed top-0 left-0 right-0 z-50"
-    style="background-color: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border);"
-  >
-    <!-- Inner row — max-width container -->
-    <div
-      class="w-full mx-auto flex items-center justify-between px-4"
-      style="max-width: var(--container-site, 1300px); height: 63px; padding-left: 32px; padding-right: 32px;"
-    >
+  <!-- Navbar wrapper — fixed, full-width, glassmorphic surface, z-50 -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
+    <!-- Inner row — max 1300px container with responsive horizontal padding -->
+    <div class="w-full max-w-[1300px] h-[63px] mx-auto flex items-center justify-between px-4 sm:px-8">
       <!-- ── Logo ── -->
       <RouterLink
         to="/"
-        class="flex-shrink-0 flex items-center"
+        class="shrink-0 flex items-center"
         aria-label="Gizera — Beranda"
-        @click="closeMenu"
+        @click="closeMenu(false)"
       >
         <img
           src="@/assets/gizera-logo.png"
@@ -66,30 +112,14 @@ const navLinks = [
       </RouterLink>
 
       <!-- ── Desktop Nav (≥810px) ── -->
-      <nav
-        class="hidden items-center gap-1"
-        style="display: none;"
-        aria-label="Navigasi utama"
-      >
-        <!-- Desktop nav links — shown via CSS at ≥810px -->
-      </nav>
-
-      <!-- Desktop layout: links + CTA in one row (shown at ≥810px) -->
-      <div class="nav-desktop hidden items-center gap-6" aria-label="Navigasi utama">
+      <div class="hidden sm:flex items-center gap-4 md:gap-6">
         <!-- Nav links -->
-        <nav class="flex items-center gap-1">
+        <nav class="flex items-center gap-1" aria-label="Navigasi utama">
           <RouterLink
             v-for="link in navLinks"
             :key="link.to"
             :to="link.to"
-            class="nav-link px-3 py-2 rounded-md transition-colors duration-150"
-            :style="{
-              fontFamily:  'var(--font-ui)',
-              fontSize:    '15px',
-              fontWeight:  '500',
-              color:       'var(--color-text-muted)',
-            }"
-            active-class="nav-link--active"
+            class="nav-link px-3 py-2 rounded-md font-ui text-[15px] font-medium text-text-muted transition-colors duration-150"
           >
             {{ link.label }}
           </RouterLink>
@@ -98,15 +128,7 @@ const navLinks = [
         <!-- CTA button -->
         <RouterLink
           to="/contact"
-          class="inline-flex items-center rounded-lg font-semibold transition-all duration-200"
-          style="
-            background-color: var(--color-brand-blue);
-            color: #fff;
-            font-family: var(--font-ui);
-            font-size: 14px;
-            padding: 10px 20px;
-            box-shadow: var(--shadow-button);
-          "
+          class="inline-flex items-center rounded-lg bg-brand-blue hover:bg-brand-blue-hover text-white font-ui text-sm font-semibold px-5 py-2.5 shadow-button transition-all duration-200"
         >
           Hubungi Kami
         </RouterLink>
@@ -114,15 +136,15 @@ const navLinks = [
 
       <!-- ── Hamburger button (mobile <810px) ── -->
       <button
-        class="nav-hamburger flex flex-col justify-center items-center gap-1.5 w-10 h-10 rounded-md transition-colors duration-150"
+        ref="hamburgerBtn"
+        class="flex sm:hidden flex-col justify-center items-center gap-1.5 w-10 h-10 rounded-md text-text-heading transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
         :aria-expanded="isOpen.toString()"
-        aria-label="Buka menu navigasi"
-        :aria-controls="'mobile-menu'"
+        :aria-label="isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'"
+        aria-controls="mobile-menu"
         type="button"
-        style="color: var(--color-text-heading);"
         @click="toggleMenu"
       >
-        <span class="sr-only">{{ isOpen ? 'Tutup menu' : 'Buka menu' }}</span>
+        <span class="sr-only">{{ isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi' }}</span>
         <!-- Animated hamburger icon -->
         <span
           class="block w-5 h-0.5 bg-current rounded-full transition-all duration-300"
@@ -151,12 +173,7 @@ const navLinks = [
       <nav
         v-show="isOpen"
         id="mobile-menu"
-        class="nav-mobile-menu border-t"
-        style="
-          border-color: var(--color-border);
-          background-color: #ffffff;
-          padding: 16px 24px 24px;
-        "
+        class="sm:hidden border-t border-border bg-white px-6 pt-4 pb-6"
         aria-label="Navigasi mobile"
       >
         <!-- Mobile links -->
@@ -164,16 +181,9 @@ const navLinks = [
           <li v-for="link in navLinks" :key="link.to">
             <RouterLink
               :to="link.to"
-              class="mobile-nav-link flex items-center w-full px-3 py-3 rounded-lg transition-colors duration-150"
-              :style="{
-                fontFamily: 'var(--font-ui)',
-                fontSize:   '16px',
-                fontWeight: '500',
-                color:      'var(--color-text-primary)',
-              }"
-              active-class="mobile-nav-link--active"
-              @click="closeMenu"
-              @keydown.enter="closeMenu"
+              class="mobile-nav-link flex items-center w-full px-3 py-3 rounded-lg font-ui text-base font-medium text-text-primary transition-colors duration-150"
+              @click="closeMenu(false)"
+              @keydown.enter="closeMenu(false)"
             >
               {{ link.label }}
             </RouterLink>
@@ -181,19 +191,11 @@ const navLinks = [
         </ul>
 
         <!-- Mobile CTA -->
-        <div class="mt-4 pt-4" style="border-top: 1px solid var(--color-border);">
+        <div class="mt-4 pt-4 border-t border-border">
           <RouterLink
             to="/contact"
-            class="flex items-center justify-center w-full rounded-lg font-semibold transition-all duration-200"
-            style="
-              background-color: var(--color-brand-blue);
-              color: #fff;
-              font-family: var(--font-ui);
-              font-size: 15px;
-              padding: 13px 20px;
-              box-shadow: var(--shadow-button);
-            "
-            @click="closeMenu"
+            class="flex items-center justify-center w-full rounded-lg bg-brand-blue hover:bg-brand-blue-hover text-white font-ui text-[15px] font-semibold py-3 px-5 shadow-button transition-all duration-200"
+            @click="closeMenu(false)"
           >
             Hubungi Kami
           </RouterLink>
@@ -203,61 +205,31 @@ const navLinks = [
   </header>
 
   <!-- Navbar spacer — prevents content from hiding behind fixed navbar -->
-  <div class="navbar-spacer" style="height: 63px;" aria-hidden="true" />
+  <div class="h-[63px]" aria-hidden="true" />
 </template>
 
 <style scoped>
-/* ── Desktop nav: show at ≥810px ── */
-@media (min-width: 810px) {
-  .nav-desktop   { display: flex !important; }
-  .nav-hamburger { display: none  !important; }
-  .nav-mobile-menu { display: none !important; }
-}
-
-/* ── Mobile: show hamburger ── */
-@media (max-width: 809.98px) {
-  .nav-desktop   { display: none  !important; }
-  .nav-hamburger { display: flex  !important; }
-
-  /* Header height on mobile */
-  header { }
-  .navbar-spacer { height: 63px; }
-}
-
-/* ── Nav link active state ── */
+/* ── Desktop nav link states ── */
 .nav-link {
   position: relative;
 }
 .nav-link:hover {
-  color: var(--color-brand-blue) !important;
+  color: var(--color-brand-blue);
   background-color: var(--color-brand-blue-pale);
 }
-.nav-link.nav-link--active,
 .nav-link.router-link-active {
-  color: var(--color-brand-blue) !important;
+  color: var(--color-brand-blue);
   font-weight: 600;
 }
 
-/* ── Mobile link active state ── */
+/* ── Mobile link states ── */
 .mobile-nav-link:hover {
   background-color: var(--color-bg-pale-teal);
-  color: var(--color-brand-blue) !important;
+  color: var(--color-brand-blue);
 }
-.mobile-nav-link.mobile-nav-link--active,
 .mobile-nav-link.router-link-active {
-  color: var(--color-brand-blue) !important;
+  color: var(--color-brand-blue);
   background-color: var(--color-brand-blue-pale);
   font-weight: 600;
-}
-
-/* ── Tablet (810–1199px): condensed spacing ── */
-@media (min-width: 810px) and (max-width: 1199.98px) {
-  .nav-desktop {
-    gap: 16px;
-  }
-  .nav-link {
-    padding-left:  10px;
-    padding-right: 10px;
-  }
 }
 </style>

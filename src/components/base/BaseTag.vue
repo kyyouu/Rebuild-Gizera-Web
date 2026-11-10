@@ -15,14 +15,13 @@ defineProps({
 <template>
   <span
     :class="[
-      'inline-flex items-center font-semibold uppercase tracking-widest rounded-full',
+      'inline-flex items-center font-ui font-semibold uppercase tracking-widest rounded-full',
       size === 'md' ? 'px-4 py-1.5 text-xs' : 'px-3 py-1 text-[11px]',
-      variant === 'blue'    && 'bg-[var(--color-brand-blue-pale)] text-[var(--color-brand-blue-navy)]',
-      variant === 'teal'    && 'bg-[var(--color-teal-light)] text-[var(--color-teal-dark)]',
-      variant === 'dark'    && 'bg-[var(--color-dark-card)] text-white/70',
-      (variant === 'default' || !['blue','teal','dark'].includes(variant)) && 'bg-[var(--color-bg-pale-teal)] text-[var(--color-teal)]',
+      variant === 'blue'    && 'bg-brand-blue-pale text-brand-blue-navy',
+      variant === 'teal'    && 'bg-teal-light text-teal-dark',
+      variant === 'dark'    && 'bg-dark-card text-white/70',
+      (variant === 'default' || !['blue','teal','dark'].includes(variant)) && 'bg-bg-pale-teal text-teal',
     ]"
-    :style="{ fontFamily: 'var(--font-ui)', letterSpacing: 'var(--tracking-widest)' }"
   >
     <slot />
   </span>

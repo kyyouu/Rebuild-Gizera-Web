@@ -22,11 +22,11 @@ const tag = computed(() => {
   return 'span'
 })
 
-const colorStyle = computed(() => ({
-  blue: 'var(--color-brand-blue)',
-  teal: 'var(--color-teal)',
-  dark: 'var(--color-text-heading)',
-}[props.color] ?? 'var(--color-brand-blue)'))
+const colorClass = computed(() => ({
+  blue: 'text-brand-blue',
+  teal: 'text-teal',
+  dark: 'text-text-heading',
+}[props.color] ?? 'text-brand-blue'))
 </script>
 
 <template>
@@ -34,12 +34,10 @@ const colorStyle = computed(() => ({
     :is="tag"
     :to="to"
     :href="href"
-    class="inline-flex items-center gap-1.5 font-semibold transition-all duration-200 group"
-    :style="{
-      fontFamily: 'var(--font-ui)',
-      fontSize:   'var(--text-sm)',
-      color:      colorStyle,
-    }"
+    :class="[
+      'inline-flex items-center gap-1.5 font-ui text-sm font-semibold transition-all duration-200 group',
+      colorClass,
+    ]"
   >
     <slot />
     <!-- Arrow icon -->

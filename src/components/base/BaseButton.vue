@@ -24,7 +24,7 @@ const props = defineProps({
   size:     { type: String,  default: 'md' },        // 'sm' | 'md' | 'lg'
 })
 
-const emit = defineEmits(['click'])
+defineEmits(['click'])
 
 const tag = computed(() => {
   if (props.as === 'router-link') return RouterLink
@@ -37,6 +37,7 @@ const baseClasses = [
   'items-center',
   'justify-center',
   'gap-2',
+  'font-ui',
   'font-semibold',
   'transition-all',
   'duration-200',
@@ -58,21 +59,21 @@ const variantClasses = computed(() => {
   if (props.variant === 'outline') {
     return [
       'border-2',
-      'border-[var(--color-brand-blue)]',
-      'text-[var(--color-brand-blue)]',
+      'border-brand-blue',
+      'text-brand-blue',
       'bg-transparent',
-      'hover:bg-[var(--color-brand-blue)]',
+      'hover:bg-brand-blue',
       'hover:text-white',
-      'focus-visible:ring-[var(--color-brand-blue)]',
+      'focus-visible:ring-brand-blue',
     ]
   }
   // solid (default)
   return [
-    'bg-[var(--color-brand-blue)]',
+    'bg-brand-blue',
     'text-white',
-    'hover:bg-[var(--color-brand-blue-hover)]',
-    'shadow-[var(--shadow-button)]',
-    'focus-visible:ring-[var(--color-brand-blue)]',
+    'hover:bg-brand-blue-hover',
+    'shadow-button',
+    'focus-visible:ring-brand-blue',
   ]
 })
 
@@ -104,7 +105,6 @@ const attrs = computed(() => {
     :is="tag"
     v-bind="attrs"
     :class="classes"
-    :style="{ fontFamily: 'var(--font-ui)' }"
     @click="$emit('click', $event)"
   >
     <slot />
