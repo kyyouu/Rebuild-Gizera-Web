@@ -5,9 +5,10 @@
  * Structure:
  *   AppNavbar (fixed)
  *   <main> with <slot /> for page content
- *   Footer — to be implemented on Day 8
+ *   AppFooter — Implemented on Day 8
  */
 import AppNavbar from '@/components/layout/AppNavbar.vue'
+import AppFooter from '@/components/layout/AppFooter.vue'
 </script>
 
 <template>
@@ -19,6 +20,6 @@ import AppNavbar from '@/components/layout/AppNavbar.vue'
     <slot />
   </main>
 
-  <!-- Footer placeholder — will be implemented on Day 8 -->
-  <!-- <AppFooter /> -->
+  <!-- Footer -->
+  <AppFooter />
 </template>

@@ -86,19 +86,19 @@ const navLinks = [
   { label: 'Layanan',      to: '/services' },
   { label: 'Studi Kasus',  to: '/case-studies' },
   { label: 'Tentang Kami', to: '/about' },
-  { label: 'Artikel',      to: '/blogs' },
+  { label: 'Artikel & Wawasan', to: '/blogs' },
 ]
 </script>
 
 <template>
-  <!-- Navbar wrapper — fixed, full-width, glassmorphic surface, z-50 -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
-    <!-- Inner row — max 1300px container with responsive horizontal padding -->
-    <div class="w-full max-w-[1300px] h-[63px] mx-auto flex items-center justify-between px-4 sm:px-8">
+  <!-- Navbar wrapper — fixed, full-width, transparent glassmorphic surface matching Gizera Web -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/[0.08]">
+    <!-- Inner row — max 1300px container matching Gizera Web framer-wye0lu -->
+    <div class="w-full max-w-[1300px] h-[64px] mx-auto flex items-center justify-between px-4 sm:px-8">
       <!-- ── Logo ── -->
       <RouterLink
         to="/"
-        class="shrink-0 flex items-center"
+        class="shrink-0 flex items-center opacity-90 hover:opacity-100 transition-opacity"
         aria-label="Gizera — Beranda"
         @click="closeMenu(false)"
       >
@@ -111,24 +111,24 @@ const navLinks = [
         />
       </RouterLink>
 
-      <!-- ── Desktop Nav (≥810px) ── -->
-      <div class="hidden sm:flex items-center gap-4 md:gap-6">
-        <!-- Nav links -->
-        <nav class="flex items-center gap-1" aria-label="Navigasi utama">
+      <!-- ── Desktop Nav (≥810px) matching Gizera Web framer-1b1fkzk & framer-OtDDP ── -->
+      <div class="hidden sm:flex items-center gap-4">
+        <!-- Nav links pills -->
+        <nav class="flex items-center gap-3" aria-label="Navigasi utama">
           <RouterLink
             v-for="link in navLinks"
             :key="link.to"
             :to="link.to"
-            class="nav-link px-3 py-2 rounded-md font-ui text-[15px] font-medium text-text-muted transition-colors duration-150"
+            class="nav-pill px-4 py-1.5 rounded-[13px] border border-white/[0.08] bg-white/[0.04] backdrop-blur-[10px] text-[15px] text-[#fafafa] font-body tracking-[-0.01em] transition-all duration-200 hover:bg-white/[0.08] hover:border-white/[0.16]"
           >
             {{ link.label }}
           </RouterLink>
         </nav>
 
-        <!-- CTA button -->
+        <!-- CTA button matching Gizera Web framer-rkuqdx glass pill -->
         <RouterLink
           to="/contact"
-          class="inline-flex items-center rounded-lg bg-brand-blue hover:bg-brand-blue-hover text-white font-ui text-sm font-semibold px-5 py-2.5 shadow-button transition-all duration-200"
+          class="inline-flex items-center px-4 py-2 rounded-[16px] border border-white/[0.14] bg-white/[0.05] backdrop-blur-[10px] text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-white/[0.12] hover:border-white/[0.25]"
         >
           Hubungi Kami
         </RouterLink>
@@ -137,7 +137,7 @@ const navLinks = [
       <!-- ── Hamburger button (mobile <810px) ── -->
       <button
         ref="hamburgerBtn"
-        class="flex sm:hidden flex-col justify-center items-center gap-1.5 w-10 h-10 rounded-md text-text-heading transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+        class="flex sm:hidden flex-col justify-center items-center gap-1.5 w-10 h-10 rounded-md text-white transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
         :aria-expanded="isOpen.toString()"
         :aria-label="isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'"
         aria-controls="mobile-menu"
@@ -173,15 +173,15 @@ const navLinks = [
       <nav
         v-show="isOpen"
         id="mobile-menu"
-        class="sm:hidden border-t border-border bg-white px-6 pt-4 pb-6"
+        class="sm:hidden border-t border-white/[0.08] bg-[#0c0e12]/95 backdrop-blur-xl px-6 pt-4 pb-6"
         aria-label="Navigasi mobile"
       >
         <!-- Mobile links -->
-        <ul class="flex flex-col gap-1" role="list">
+        <ul class="flex flex-col gap-2" role="list">
           <li v-for="link in navLinks" :key="link.to">
             <RouterLink
               :to="link.to"
-              class="mobile-nav-link flex items-center w-full px-3 py-3 rounded-lg font-ui text-base font-medium text-text-primary transition-colors duration-150"
+              class="mobile-nav-link flex items-center w-full px-4 py-2.5 rounded-[12px] border border-white/[0.08] bg-white/[0.04] text-[15px] font-medium text-white transition-colors duration-150"
               @click="closeMenu(false)"
               @keydown.enter="closeMenu(false)"
             >
@@ -191,10 +191,10 @@ const navLinks = [
         </ul>
 
         <!-- Mobile CTA -->
-        <div class="mt-4 pt-4 border-t border-border">
+        <div class="mt-4 pt-4 border-t border-white/[0.08]">
           <RouterLink
             to="/contact"
-            class="flex items-center justify-center w-full rounded-lg bg-brand-blue hover:bg-brand-blue-hover text-white font-ui text-[15px] font-semibold py-3 px-5 shadow-button transition-all duration-200"
+            class="flex items-center justify-center w-full rounded-[16px] bg-brand-blue hover:bg-brand-blue-hover text-white text-[15px] font-semibold py-3 px-5 shadow-button transition-all duration-200"
             @click="closeMenu(false)"
           >
             Hubungi Kami
@@ -203,33 +203,32 @@ const navLinks = [
       </nav>
     </Transition>
   </header>
-
-  <!-- Navbar spacer — prevents content from hiding behind fixed navbar -->
-  <div class="h-[63px]" aria-hidden="true" />
 </template>
 
 <style scoped>
-/* ── Desktop nav link states ── */
-.nav-link {
+/* ── Desktop nav pill states ── */
+.nav-pill {
   position: relative;
 }
-.nav-link:hover {
-  color: var(--color-brand-blue);
-  background-color: var(--color-brand-blue-pale);
+.nav-pill:hover {
+  background-color: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
 }
-.nav-link.router-link-active {
-  color: var(--color-brand-blue);
-  font-weight: 600;
+.nav-pill.router-link-active {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
 }
 
 /* ── Mobile link states ── */
 .mobile-nav-link:hover {
-  background-color: var(--color-bg-pale-teal);
-  color: var(--color-brand-blue);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
 }
 .mobile-nav-link.router-link-active {
-  color: var(--color-brand-blue);
-  background-color: var(--color-brand-blue-pale);
-  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
 }
 </style>
