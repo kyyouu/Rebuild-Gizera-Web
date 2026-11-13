@@ -5,54 +5,15 @@
  * Synchronized with Gizera Web reference:
  *   - Tag "LAYANAN KAMI"
  *   - H2: "Solusi Terpadu Menjawab Tantangan Bisnis"
- *   - 5 authentic services:
- *     1. Transformasi Digital
- *     2. Human Capital & Alih Daya
- *     3. Konsultan IT
- *     4. Spesialis Perangkat Lunak
- *     5. Infrastruktur & Jaringan IT
- *   - Bottom subtext: "Membantu bisnis berkembang dengan arah yang jelas, andal, dan hasil yang terukur."
- *   - CTA: "Lihat semua layanan" -> /services
+ *   - 5 authentic services dari src/data/services.js
+ *   - Bottom subtext & CTA /services
+ *
+ * Data layanan tidak di-hardcode di sini — diambil dari data layer terpusat.
  */
 import BaseTag from '@/components/base/BaseTag.vue'
+import { getAllServices } from '@/services/serviceService.js'
 
-const services = [
-  {
-    id: 1,
-    slug: 'transformasi-digital',
-    title: 'Transformasi Digital',
-    desc: 'Modernisasi kemampuan bisnis melalui platform cerdas, integrasi cloud, dan teknologi mutakhir.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
-  },
-  {
-    id: 2,
-    slug: 'human-capital-alih-daya',
-    title: 'Human Capital & Alih Daya',
-    desc: 'Konsultasi pengembangan organisasi (OD), optimalisasi fungsi HR, dan tenaga alih daya profesional siap kerja.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-  },
-  {
-    id: 3,
-    slug: 'konsultan-it',
-    title: 'Konsultan IT',
-    desc: 'Perencanaan blueprint teknologi komprehensif, audit sistem informasi, dan penasihat strategis bisnis.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
-  },
-  {
-    id: 4,
-    slug: 'spesialis-perangkat-lunak',
-    title: 'Spesialis Perangkat Lunak',
-    desc: 'Rekayasa perangkat lunak enterprise, aplikasi web & mobile kustom dengan arsitektur tangguh dan scalable.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
-  },
-  {
-    id: 5,
-    slug: 'infrastruktur-jaringan-it',
-    title: 'Infrastruktur & Jaringan IT',
-    desc: 'Fondasi arsitektur IT infrastruktur kokoh, data center andal, serta pengamanan Computer Network 24/7.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
-  },
-]
+const services = getAllServices()
 </script>
 
 <template>
@@ -84,7 +45,7 @@ const services = [
             </span>
           </div>
           <h3 class="service-card-title">{{ service.title }}</h3>
-          <p class="service-card-desc">{{ service.desc }}</p>
+          <p class="service-card-desc">{{ service.tagline }}</p>
         </RouterLink>
       </div>
 

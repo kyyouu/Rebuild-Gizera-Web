@@ -1,5 +1,5 @@
 <template>
-  <main class="min-h-screen flex items-center justify-center">
+  <div class="min-h-screen flex items-center justify-center">
     <div class="text-center px-6">
       <p class="mb-3 uppercase tracking-widest font-ui text-xs text-teal">
         Studi Kasus
@@ -14,5 +14,5 @@
         Route: <code>/case-studies</code> · CaseStudiesView · Day 7 Placeholder
       </p>
     </div>
-  </main>
+  </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <main class="min-h-screen flex items-center justify-center bg-dark text-white">
+  <div class="not-found-wrap">
     <div class="text-center px-6">
       <p class="mb-4 uppercase tracking-widest font-ui text-xs text-teal-cyan">
         404 — Halaman Tidak Ditemukan
@@ -26,6 +26,17 @@
         Route: <code>/:pathMatch(.*)*</code> · NotFoundView
       </p>
     </div>
-  </main>
+  </div>
 </template>
+
+<style scoped>
+.not-found-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00030d;
+  color: #ffffff;
+}
+</style>
 

@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('./views/ServicesView.vue'),
     },
     {
+      path: '/services/:slug',
+      name: 'service-detail',
+      component: () => import('./views/ServiceDetailView.vue'),
+    },
+    {
       path: '/case-studies',
       name: 'case-studies',
       component: () => import('./views/CaseStudiesView.vue'),
@@ -49,4 +54,9 @@ const router = createRouter({
   },
 })
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App)
+app.use(router)
+
+router.isReady().then(() => {
+  app.mount('#app')
+})

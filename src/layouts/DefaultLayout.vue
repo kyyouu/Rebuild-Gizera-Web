@@ -3,23 +3,26 @@
  * DefaultLayout — Main site layout wrapper.
  *
  * Structure:
- *   AppNavbar (fixed)
- *   <main> with <slot /> for page content
- *   AppFooter — Implemented on Day 8
+ *   Wrapper (.layout-wrapper: flex flex-col min-h-screen)
+ *   AppNavbar (fixed, top: 0)
+ *   <main class="flex-1 w-full min-h-screen"> with <slot /> for page content
+ *   AppFooter — Site-wide footer
  */
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 </script>
 
 <template>
-  <!-- AppNavbar renders its own spacer div to push content below the fixed bar -->
-  <AppNavbar />
+  <div class="layout-wrapper flex flex-col min-h-screen">
+    <!-- Fixed Glassmorphic Navbar -->
+    <AppNavbar />
 
-  <!-- Page content -->
-  <main class="flex-1">
-    <slot />
-  </main>
+    <!-- Page content: flex-1 keeps footer at bottom, min-h-screen prevents footer from jumping into viewport -->
+    <main class="flex-1 w-full min-h-screen">
+      <slot />
+    </main>
 
-  <!-- Footer -->
-  <AppFooter />
+    <!-- Footer -->
+    <AppFooter />
+  </div>
 </template>

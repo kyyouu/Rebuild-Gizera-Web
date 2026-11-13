@@ -19,7 +19,8 @@
  *     and glass play/pause toggle button.
  */
 import { ref, onMounted, onUnmounted } from 'vue'
-import heroVideoUrl from '@/assets/videos/hero-video.mp4'
+import heroVideoUrl from '@/assets/hero-video.mp4'
+import heroPosterUrl from '@/assets/hero-poster.webp'
 import { initHeroLiquidShader } from './heroShader'
 
 // ── WebGL2 Liquid Gradient Shader ──
@@ -27,16 +28,27 @@ const canvasRef = ref(null)
 const heroSectionRef = ref(null)
 let shaderInstance = null
 
+// ── Responsive desktop check (do not render video on < 810px) ──
+const isDesktop = ref(typeof window !== 'undefined' ? window.innerWidth >= 810 : true)
+const updateViewport = () => {
+  if (typeof window !== 'undefined') {
+    isDesktop.value = window.innerWidth >= 810
+  }
+}
+
 onMounted(() => {
   if (canvasRef.value) {
     shaderInstance = initHeroLiquidShader(canvasRef.value)
   }
+  window.addEventListener('resize', updateViewport)
+  updateViewport()
 })
 
 onUnmounted(() => {
   if (shaderInstance && typeof shaderInstance.destroy === 'function') {
     shaderInstance.destroy()
   }
+  window.removeEventListener('resize', updateViewport)
 })
 
 const handleMouseMove = (e) => {
@@ -116,18 +128,19 @@ const togglePlay = () => {
             </RouterLink>
           </div>
 
-          <!-- Right video — framer-1ur3sde-container: width:355px; height:210px -->
-          <div class="hero-right" aria-hidden="true">
+          <!-- Right video — framer-1ur3sde-container: width:355px; height:210px (desktop), hidden on mobile (< 810px) -->
+          <div v-if="isDesktop" class="hero-right" aria-hidden="true">
             <div class="hero-video-card" @click="togglePlay">
               <video
                 ref="heroVideoRef"
                 class="hero-video"
                 :src="heroVideoUrl"
+                :poster="heroPosterUrl"
                 autoplay
                 loop
                 muted
                 playsinline
-                preload="auto"
+                preload="metadata"
                 @play="isPlaying = true"
                 @pause="isPlaying = false"
               ></video>

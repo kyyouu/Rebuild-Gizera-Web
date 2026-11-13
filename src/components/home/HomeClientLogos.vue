@@ -10,13 +10,13 @@
  *   - Mobile responsive adjustments (gap 36px, height 32px)
  */
 
-import logoCVBerkahAlam   from '@/assets/clients/CV Berkah Alam.png'
-import logoPTAsyraf       from '@/assets/clients/PT Asyraf Nusantara Daya.png'
-import logoPTCipta        from '@/assets/clients/PT Cipta Lingkungan Lestari.png'
-import logoPTDinamika     from '@/assets/clients/PT Dinamika.png'
-import logoPTMoba         from '@/assets/clients/PT Moba Inspirasi Nusantara.png'
-import logoQuinland       from '@/assets/clients/Quinland Group.png'
-import logoRTQ            from '@/assets/clients/RTQ ALFATH.png'
+import logoCVBerkahAlam   from '@/assets/clients/cv-berkah-alam.webp'
+import logoPTAsyraf       from '@/assets/clients/pt-asyraf-nusantara-daya.webp'
+import logoPTCipta        from '@/assets/clients/pt-cipta-lingkungan-lestari.webp'
+import logoPTDinamika     from '@/assets/clients/pt-dinamika.webp'
+import logoPTMoba         from '@/assets/clients/pt-moba-inspirasi-nusantara.webp'
+import logoQuinland       from '@/assets/clients/quinland-group.webp'
+import logoRTQ            from '@/assets/clients/rtq-al-fath.webp'
 
 const clients = [
   { name: 'CV Berkah Alam',              img: logoCVBerkahAlam },
